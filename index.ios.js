@@ -10,7 +10,8 @@ import {
   StyleSheet,
   ScrollView,
   Text,
-  View
+  View,
+  TouchableHighlight
 } from 'react-native';
 
 import Header from './src/header';
@@ -23,6 +24,7 @@ export default class testapp extends Component {
 
   constructor(props) {
     super(props);
+    this.filterNews = this.filterNews.bind(this);
 
     this.newsContent = [
       { id: 1, title: "World Happines Report", description: "18k people talking about this", typeId: 1 },
@@ -30,13 +32,26 @@ export default class testapp extends Component {
       { id: 3, title: "Samsung", description: "1M people talking about this", typeId: 2 },
       { id: 4, title: "Cristiano Ronaldo", description: "510k people talking about this", typeId: 3 },
       { id: 5, title: "Xiaomi", description: "120k people talking about this", typeId: 2 }
-    ];
-
+    ];    
     this.newsTypes = [
       { title: "Around You", id: 1, image: require('./src/assets/around.png'), color: '#A5DF00' },
       { title: "Top News", id: 2, image: require('./src/assets/top.png'), color: '#FA5882' },
       { title: "Sport News", id: 3, image: require('./src/assets/sport.png'), color: '#FE642E' }
     ];
+
+    this.state.newsFilteredList = this.newsContent;    
+  }
+
+  state = { 
+    newsFilteredList :[]
+  }
+
+  filterNews(filterTypeId) {
+    const filteredList = this.newsContent.filter(
+      (item) => item.typeId === filterTypeId
+    )            
+    this.state.newsFilteredList = filteredList;
+    this.setState({ newsFilteredList: this.state.newsFilteredList});    
   }
 
   render() {
@@ -47,16 +62,22 @@ export default class testapp extends Component {
           <ScrollView horizontal style={styles.scrollViewFilters}>
             {
               _.map(this.newsTypes, (newsTypeItem) => {
-                return (<FilterCell
-                  key={newsTypeItem.id}
-                  title={newsTypeItem.title}
-                  image={newsTypeItem.image}
-                  color={newsTypeItem.color} />)
+                return (                 
+                  <TouchableHighlight key={newsTypeItem.id} 
+                        onPress={() => this.filterNews(newsTypeItem.id)}> 
+                        <View key={newsTypeItem.id}>
+                          <FilterCell
+                            key={newsTypeItem.id}
+                            title={newsTypeItem.title}
+                            image={newsTypeItem.image}
+                            color={newsTypeItem.color} />
+                      </View>
+                  </TouchableHighlight>)
               })
             }
           </ScrollView>
           {
-            _.map(this.newsContent, (newsItem) => {
+            _.map(this.state.newsFilteredList, (newsItem) => {
               return (<NewCell
                 key={newsItem.id}
                 title={newsItem.title}
@@ -79,7 +100,11 @@ const styles = StyleSheet.create({
   },
   scrollViewFilters: {
     height: 140
+  },
+  touchableHighlight : {
+    flex: 1
   }
 });
+
 
 AppRegistry.registerComponent('testapp', () => testapp);

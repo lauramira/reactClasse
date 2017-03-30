@@ -10,7 +10,8 @@ import {
   StyleSheet,
   ScrollView,
   Text,
-  View
+  View,
+  TouchableHighlight
 } from 'react-native';
 
 import Header from './src/header';
@@ -23,6 +24,7 @@ export default class testapp extends Component {
 
   constructor(props) {
     super(props);
+    this.filterNews = this.filterNews.bind(this);
 
     this.newsContent = [
       { id: 1, title: "World Happines Report", description: "18k people talking about this", typeId: 1 },
@@ -44,8 +46,12 @@ export default class testapp extends Component {
     newsFilteredList :[]
   }
 
-  filterNews() {
-    
+  filterNews(filterTypeId) {
+    const filteredList = this.newsContent.filter(
+      (item) => item.typeId === filterTypeId
+    )            
+    this.state.newsFilteredList = filteredList;
+    this.setState({ newsFilteredList: this.state.newsFilteredList});    
   }
 
   render() {
@@ -56,11 +62,17 @@ export default class testapp extends Component {
           <ScrollView horizontal style={styles.scrollViewFilters}>
             {
               _.map(this.newsTypes, (newsTypeItem) => {
-                return (<FilterCell
-                  key={newsTypeItem.id}
-                  title={newsTypeItem.title}
-                  image={newsTypeItem.image}
-                  color={newsTypeItem.color} />)
+                return (                 
+                  <TouchableHighlight key={newsTypeItem.id} 
+                        onPress={() => this.filterNews(newsTypeItem.id)}> 
+                        <View key={newsTypeItem.id}>
+                          <FilterCell
+                            key={newsTypeItem.id}
+                            title={newsTypeItem.title}
+                            image={newsTypeItem.image}
+                            color={newsTypeItem.color} />
+                      </View>
+                  </TouchableHighlight>)
               })
             }
           </ScrollView>
@@ -88,7 +100,11 @@ const styles = StyleSheet.create({
   },
   scrollViewFilters: {
     height: 140
+  },
+  touchableHighlight : {
+    flex: 1
   }
 });
+
 
 AppRegistry.registerComponent('testapp', () => testapp);
