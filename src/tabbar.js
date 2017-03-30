@@ -6,7 +6,9 @@ import {
   View,
   Dimensions
 } from 'react-native';
+
 import Button from './TabBarButton';
+import _ from 'underscore';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,12 +20,32 @@ const styles = StyleSheet.create({
 })
 
 export default class Footer extends Component {
+   constructor(props) {
+        super(props);        
+        this.tabBarButtons = [
+            { id: 1, title: "News", page: "newsPage"},
+            { id: 2, title: "Trending", page: "trendingPage"},
+            { id: 3, title: "Settings", page: "settingsView"}            
+        ];
+    }
+
+
   render() {
+    const navigator = this.props.navigator;
+
     return (
       <View style={styles.container}>
-        <Button />
-        <Button />
-        <Button />
+        {
+          _.map(this.tabBarButtons, (button) => {
+              return (
+               <Button 
+                  key={button.id} 
+                  title={button.title} 
+                  page={button.page}
+                  navigator={navigator}/>                    
+              )
+          })
+        }
       </View>
     );
   }

@@ -57,7 +57,6 @@ export default class testapp extends Component {
   render() {
     return (  
       <View style={styles.container}>
-        <Header />
         <ScrollView style={styles.content}>
           <ScrollView horizontal style={styles.scrollViewFilters}>
             {

@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "node": "0.0.0",
     "react": "~15.4.1",
     "react-native": "0.42.3",
     "underscore": "^1.8.3"
@@ -23,5 +24,13 @@
   "main": "index.android.js",
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lauramira/reactClasse.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lauramira/reactClasse/issues"
+  },
+  "homepage": "https://github.com/lauramira/reactClasse#readme",
   "description": ""
 }
