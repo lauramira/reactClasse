@@ -25,7 +25,8 @@ export default class Footer extends Component {
         this.tabBarButtons = [
             { id: 1, title: "News", page: "newsPage"},
             { id: 2, title: "Trending", page: "trendingPage"},
-            { id: 3, title: "Settings", page: "settingsView"}            
+            { id: 3, title: "Settings", page: "settingsView"},
+            { id: 4, title: "TabView", page: "tabViewView"}           
         ];
     }
 

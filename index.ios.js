@@ -18,11 +18,13 @@ import {
 import NewsView from './src/NewsView';
 import TrendingView from './src/TrendingView';
 import SettingsView from './src/SettingsView';
+import TabViewView from './src/TabViewView';
 
 var ROUTES = {
   newsPage: NewsView,
   trendingPage: TrendingView,
-  settingsView: SettingsView
+  settingsView: SettingsView,
+  tabViewView : TabViewView
 }
 
 export default class testapp extends Component {
